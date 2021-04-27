@@ -7,9 +7,13 @@ function confirmarLogin(nome,password,callback){
         var estado={};
         if (doc && doc.length) //if it does
         {
+            var aux  = doc.map(({ foto }) => foto);
+            var pic=aux.toString();
+            console.log(pic);
+            estado.imagem=pic;
             estado.sucesso=true;
-            estado.mensagem="Login efetuado com sucesso, Bem vindo "+ nome;
-            console.log(doc,"Login efetuado com sucesso, Bem vindo "+ nome);
+            estado.mensagem="Bem vindo "+ nome;
+            console.log(doc,"Bem vindo "+ nome);
             callback(err, doc,estado);
         }
         else // if it does not

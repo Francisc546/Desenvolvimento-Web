@@ -1,9 +1,8 @@
-<!--action="/activities/raw"-->
-<form method="post" action="/registado"  >
+<form method="post" action="/registado" enctype='multipart/form-data'  >
     <input placeholder="Nome" name="nome" required><br><br>
     <input type="password" placeholder="Password" name="password" id="password" required><br><br>
-     <label for="img">Escolha uma imagem:</label>
-     <input type="file" id="img" name="img" accept="image/*"  required><br>
+    <label for="img">Escolha a foto de perfil que desejar:</label>
+    <input type="file" id="img" name="img" required><br>
     <input type="submit" value="registar">
 </form>
 
