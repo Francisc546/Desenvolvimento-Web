@@ -16,3 +16,22 @@ module.exports = {
     }
 
 }
+
+
+/*Mudar o nome da pasta para mongooseConfigs,js */ 
+
+/*
+const mongoose = require('mongoose');
+
+const CONNECTION_URL = `mongodb+srv://G5:PXH7cxTyxleSdcpN@clusterdbw.1dbjr.mongodb.net/G2?authSource=admin&replicaSet=atlas-bek8xj-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true`
+
+mongoose.connect(CONNECTION_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  function (err, database){
+    console.log('Connected the database on port 27017');
+//Insert DB name as the group id - G[id]
+    db = database.db('G5');
+    callback(err);
+    }
+})*/

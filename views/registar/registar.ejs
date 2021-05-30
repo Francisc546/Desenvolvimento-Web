@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- include(process.cwd() + '/views/partials/head') %> <!-- Reused so it's general view -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
     <title>Registo</title>
-</head>
-<body>
-    <%- include(process.cwd() + '/views/partials/title') %> <!-- Reused so it's general view -->
-    <%- include('./partials/content') %> <!-- Just for activity -->
-    <br><br>
-
-</body>
+    <link rel="stylesheet" href="style.css">
+      <script type="text/javascript" src="scripts.js"></script>
+  </head>
+  <body>
+    <div class ="box">  
+        <h1>Registo</h1>
+        <form method="post" action="/registado" enctype='multipart/form-data'>
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+            <input type="file" id="img" name="img"  accept="image/*" required>
+            <input type="submit" name="" value="Registar">
+        </form>
+        <%- include(process.cwd() + '/views/partials/voltar') %>
+    </div>
+  </body>
 </html>
+
+
+

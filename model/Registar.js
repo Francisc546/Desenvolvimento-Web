@@ -2,7 +2,7 @@ var mongoConfigs = require('./mongoConfigs');
 
 function inserirRegisto(nome,password,foto,callback){
     var db = mongoConfigs.getDB();
-    db.collection("registo_contas").find({ nome:nome}, { $exists: true }).toArray(function    (err, doc) //find if a value exists
+    db.collection("registo_contas").find({ nome:nome}, { $exists: true }).toArray(function(err, doc) //find if a value exists
     {
         var estado={};
         if (doc && doc.length) //if it does
@@ -18,10 +18,10 @@ function inserirRegisto(nome,password,foto,callback){
             estado.sucesso=true;
             estado.mensagem="Conta Criada com Sucesso, Bem vindo: " + nome;
             console.log("Conta Criada com Sucesso, Bem vindo: " + nome);
-            db.collection('registo_contas').insertOne({nome:nome, password:password, foto:foto}, function (err, result) {
+            db.collection('registo_contas').insertOne({nome:nome, password:password, foto:foto,ativo:1}, function (err, result) {
                 callback(err,result,estado);
             });
-            db.collection('registo_contas').updateOne({nome:nome}, {$set: {foto:globalString}});
+            db.collection('registo_contas').updateOne({nome:nome}, {$set: {foto:caminho}});
 
         }
     });
@@ -31,5 +31,4 @@ function inserirRegisto(nome,password,foto,callback){
 
 module.exports = {
     inserirRegisto,
-
 };

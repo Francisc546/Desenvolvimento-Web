@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- include(process.cwd() + '/views/partials/head') %> <!-- Reused so it's general view -->
-    <title>Login</title>
-</head>
-<body>
-    <%- include(process.cwd() + '/views/partials/titleLogin') %> <!-- Reused so it's general view -->
-    <%- include('./partials/content') %> <!-- Just for activity -->
-    <br><br>
-</body>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>َLogin</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="scripts.js"></script>
+  </head>
+  <body>
+    <div class="box" >
+      <h1>Login</h1>
+      <form  method="post" action="/perfil">
+        <input id="utilizador_id" type="text" name="nome" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input id= "Login" type="submit" name="" value="Login">
+      </form>
+      <form action="/registar">
+        <input type="submit" name="" value="Registar">
+      </form>
+    </div>
+  </body>
 </html>

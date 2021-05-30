@@ -6,5 +6,4 @@ function addRegisto(req,callback){
 
 module.exports = {
     addRegisto,
-
 };
