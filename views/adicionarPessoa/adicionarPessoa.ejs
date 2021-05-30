@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Adicionar Pessoa</title>
+    <link rel="stylesheet" href="style.css">
+      <script type="text/javascript" src="scripts.js"></script>
+  </head>
+  <body>
+    <div class ="box">  
+        <h1>Adicionar Pessoa</h1>
+        <label>Lista de Pessoas para convidar: </label>
+        <form method="" action="">
+            <% for(var i=0; i<data.pessoas.length; ++i){ %>
+                <label for="<%= data.pessoas[i].nome %>"> <%= data.pessoas[i].nome %></label><br>
+            <% } %>
+        </form>
+        <form method="post" action="/adicionarPessoa" >
+            <input type="text" name="nome" placeholder="Nome da Pessoa" required>
+            <input type="submit" name="" value="Adicionar">
+        </form>
+        <%- include(process.cwd() + '/views/partials/voltar') %>
+    </div>
+  </body>
+</html>
+

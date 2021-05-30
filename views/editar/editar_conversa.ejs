@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="scripts.js"></script>
+    <title>Editar Conversa</title>
+</head>
+<body>
+<div class="box">
+    <h1 >Editar Conversa</h1>
+    <form method="post" action="/editado_conversa">
+        <input type="text" name="nome" placeholder="Nome Conversa" value="<%=nome_user%>"  required>
+        <input type="submit"  value="Editar" >
+    </form>
+
+    <%- include(process.cwd() + '/views/partials/voltar') %>
+</div>
+</body>
+</html>

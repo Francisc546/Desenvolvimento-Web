@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="scripts.js"></script>
+    <% if (data.sucesso == true) { %>
+        <title>Perfil</title>
+    <% } else if(data.sucesso == false) { %>
+        <title>Ups!</title>
+    <% } %>
+</head>
+<body>
+<div class="box">
+    <% if (data.sucesso == true) { %>
+    <h1>Perfil</h1>
+    <img src='<%=data.imagem%>' alt="foto" class="foto">
+    <h3><%=data.mensagem%></h3>
+ <!--   <form action="/"  >
+        <input type="submit" name="" value="Sair">
+    </form>
+    <form action="/editar" >
+        <input type="submit" name="" value="Editar Perfil">
+    </form>
+    <form action="/conversas" class="alinhar">
+        <input type="submit" value="Ver Conversas">
+    </form>
+    <form action="/chat" class="alinhar">
+        <input  type="submit" value="Ver Chat">
+    </form> -->
+
+    <form action="/conversa" method="post" > <!--Ver o que ,eter na action e method-->
+        <div class="form-control">
+            <label for="room">Suas Conversas </label>
+            <select name="chat" id="chat" required>
+                <% for(var i=0; i<data.conversas.length; ++i){ %>
+                    <option value="<%= data.conversas[i]._id %>"><%=data.conversas[i].chat_name%></option>
+                <% } %>
+                    <% for(var i=0; i<data.conversas_participadas.length; ++i){ %>
+                        <option value="<%= data.conversas_participadas[i].id_conversa%>"><%= data.conversas_participadas[i].conversa %></option>
+                    <% } %>
+            </select>
+            <input type="submit"  value="Entrar na Conversa">
+        </div>
+    </form>
+
+    <form action="/criarConversa"  >
+        <input type="submit" name="" value="Criar Conversa">
+    </form>
+    <form action="/convites"  >
+        <input type="submit" name="" value="Convites">
+    </form>
+    <form action="/pedidos">
+        <input type="submit" name="" value="Pedidos">
+    </form>
+    <form action="/pedirVoltar"  >
+        <input type="submit" name="" value="Voltar a uma Conversa">
+    </form>
+    <form action="/editar"  >
+        <input type="submit" name="" value="Editar Perfil">
+    </form>
+    <form action="/" >
+        <input type="submit" name="" value="Sair">
+    </form>
+    <% } else if(data.sucesso == false) { %>
+    <h1 >Ups!</h1>
+    <h3 ><%=data.mensagem%></h3>
+    <%- include(process.cwd() + '/views/partials/voltar') %>
+    <% } %>
+</div>
+</body>
+</html>

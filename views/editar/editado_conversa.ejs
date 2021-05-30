@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="scripts.js"></script>
+    <% if (data.sucesso == true) { %>
+        <title>Editado</title>
+    <% } else if(data.sucesso == false) { %>
+        <title>Ups!</title>
+    <% } %>
+</head>
+<body>
+<div class="box">
+    <% if (data.sucesso == true) { %>
+        <h1> Editado </h1>
+    <% } else if(data.sucesso == false) { %>
+        <h1> Ups! </h1>
+    <% } %>
+    <h4> <%=data.mensagem%> </h4>
+    <% if (data.sucesso == true) { %>
+        <form action="/" >
+            <input type="submit" name="" value="Login">
+        </form>
+    <% } else { %>
+        <%- include(process.cwd() + '/views/partials/voltar') %>
+    <% } %>
+</div>
+</body>
+</html>

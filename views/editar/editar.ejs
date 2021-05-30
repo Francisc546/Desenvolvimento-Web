@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="scripts.js"></script>
+    <title>Editar Perfil</title>
+</head>
+<body>
+    <div class="box">
+        <h1 >Editar Perfil</h1>
+        <form method="post" action="/editado_nome">
+            <input type="text" name="nome" placeholder="Nome" value="<%=nome_user%>"  required>
+            <input type="submit"  value="Editar" >
+        </form>
+        <form  method="post" action="/editado_pass">
+            <input type="password" name="password" placeholder="Password" id="editar_pass" value="<%=password_user%>" required>
+            <input type="submit"  value="Editar" >
+        </form>
+        <form  method="post" action="/editado_foto" enctype='multipart/form-data'>
+            <input type="file" id="img" name="img" required><br>
+            <input type="submit"   value="Editar" >
+        </form>
+        <%- include(process.cwd() + '/views/partials/voltar') %>
+    </div>
+</body>
+</html>

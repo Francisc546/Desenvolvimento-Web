@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="scripts.js"></script>
+    <title>Voltar a uma conversa</title>
+</head>
+<body>
+<div class="box">
+    <% for(var i=0; i<data.length; ++i){ %>
+        <p class="text">
+            Conversa: <%= data[i].conversa %>
+        </p>
+        <p class="text">
+            Nome: <%= data[i].nome_participante%>
+        </p>
+        <form action="/aceitarPedido" method="post">
+            <input  type="hidden" name="id_conversa" value="<%=data[i].id_conversa%>" >
+            <input  type="submit" value="Aceitar">
+        </form>
+        <form action="/recusarPedido" method="post">
+            <input  type="hidden" name="id_conversa" value="<%=data[i].id_conversa%>" >
+            <input  type="submit" value="Recusar">
+        </form>
+    <% } %>
+    <%- include(process.cwd() + '/views/partials/voltar') %>
+    <div>
+</body>
+</html>

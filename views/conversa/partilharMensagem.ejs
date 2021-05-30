@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Partilhar Mensagem</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="scripts.js"></script>
+
+</head>
+<body>
+<div class ="box">
+    <h1>Escolha a conversa onde pretende partilhar a mensagem</h1>
+    <label>Lista de Conversas para partilhar mensagem: </label>
+    <form method="post" action="/conversa">
+        <% for(var i=0; i<data.conversas.length; ++i){ %>
+            <input type="checkbox" value="<%= data.chats_name[i]._id %>" name="<%= data.chats_name[i]._id %>">
+            <label for="<%= data.conversas[i]._id %>"> <%= data.conversas[i].chat_name %></label><br>
+        <% } %>
+        <input type="submit" value="Submit">
+    </form>
+    <!--<form method="post" action="/partilharMensagem">
+        <input type="submit" name="" value="Partilhar mensagem ">
+    </form> -->
+
+</div>
+</body>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+        integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+        crossorigin="anonymous"
+></script>
+</html>

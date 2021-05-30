@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Conversa Criada</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="scripts.js"></script>
+
+</head>
+<body>
+<div class ="box">
+    <h1>Conversa Criada, Adicione Pessoas</h1>
+    <label>Lista de Pessoas para convidar: </label>
+    <form method="" action="">
+        <% for(var i=0; i<data.pessoas.length; ++i){ %>
+            <input type="checkbox" value="<%= data.pessoas[i]._id %>" name="<%= data.pessoas[i]._id %>">
+            <label for="<%= data.pessoas[i]._id %>"> <%= data.pessoas[i].nome %></label><br>
+        <% } %>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
