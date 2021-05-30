@@ -56,13 +56,14 @@ function RespostaMensagem(resposta,mensagem,id_conversa,callback){
 }
 
 
-function PartilharMensagem(id_mensagem,id_utilizador,callback){
+function PartilharMensagem(id_mensagem,callback){
     var db = mongoConfigs.getDB();
     global.id_mensagem=id_mensagem;
-    global.id_utilizador=id_utilizador;
-    db.collection('')
-    db.collection('mensagens').find({_id:id_mensagem}).toArray(function(err,result){
-        //callback(result.nome_utilizador,result.mensagem,result.data);
+    console.log(id_mensagem+ "1º");
+    db.collection('mensagens').find({_id:ObjectId(id_mensagem)}).toArray(function(err,result){
+        //callback(result.nome_utilizador,result.mensagem,result.data);//
+        console.log(id_mensagem+ "2º");
+        console.log(result);
         callback(result);
     });
 }

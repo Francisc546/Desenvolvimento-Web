@@ -205,16 +205,14 @@ app.post('/respostaMensagem',function (req, res) {
 
 
 app.post('/partilharMensagem',function (req, res) {
-    LoginController.confirmarLogin(req, function (err,result,estado) { //ver o estado?
-        ConversaController.ListarConversas(function (result) {
+        ConversaController.ListarConversas(function (err,result,estado) {
             MensagemController.PartilharMensagem(req, function (result2) {
                 estado.conversas_participadas = result;
                 estado.mensagem_partilhada = result2;
                 //res.render('./conversa/partilharMensagem',{data:result}); //mudar render para o partilharmensagem ejs
-                res.render('./conversa/partilharMensagem', {data: {mensagem: result, conversas: result2}}); //mudar render para o partilharmensagem ejs
+                res.render('./conversa/partilharMensagem', {data: {mensagem_partilhada: result, conversas_participadas: result2}}); //mudar render para o partilharmensagem ejs
             });
         });
-    });
 });
 
 

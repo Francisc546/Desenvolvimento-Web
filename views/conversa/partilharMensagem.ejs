@@ -12,10 +12,16 @@
     <h1>Escolha a conversa onde pretende partilhar a mensagem</h1>
     <label>Lista de Conversas para partilhar mensagem: </label>
     <form method="post" action="/conversa">
-        <% for(var i=0; i<data.conversas.length; ++i){ %>
-            <input type="checkbox" value="<%= data.chats_name[i]._id %>" name="<%= data.chats_name[i]._id %>">
-            <label for="<%= data.conversas[i]._id %>"> <%= data.conversas[i].chat_name %></label><br>
+        <% for(var i=0; i<data.conversas_participadas.length; ++i){ %>
+            <input type="checkbox" value="<%= data.conversas_participadas[i]._id %>" name="<%= data.conversas_participadas[i]._id %>">
+            <label for="<%= data.conversas_participadas[i]._id %>"> <%= data.conversas_participadas[i].chat_name %></label><br>
         <% } %>
+            <form  id="conversa-form" method="post" action="/enviar" > <!-- ver o method e action para este form -->
+                <input type="hidden" name="id_conversa" value="<%= data.id_conversa %>"/>
+                <input id="msg" type="text" name="mensagem" value="<%= data.mensagem_partilhada %>" />
+                <button class="btn"> Enviar </button>
+
+            </form>
         <input type="submit" value="Submit">
     </form>
     <!--<form method="post" action="/partilharMensagem">

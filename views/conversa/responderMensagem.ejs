@@ -13,7 +13,7 @@
     <script type="text/javascript" src="scripts.js"></script>
     <body>
     <div class="resposta-form-container"> <!-- é o container do fundo onde tem o input para texto e o botao para enviar msg-->
-        <form  id="resposta-form" method="post" action="/respostaMensagem" > <!-- ver o method e action para este form -->
+        <form  id="resposta-form" method="post" action="/respostaMensagem" >
             <input type="hidden" name="id_conversa" value="<%= data.id_conversa %>"/>
             <input id="msg" type="text" name="mensagem" autocomplete="off" placeholder="Escreva a sua mensagem ..." required />
             <button class="btn"> Enviar </button>

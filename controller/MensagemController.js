@@ -14,7 +14,7 @@ function ResponderMensagem(req,callback){
     Mensagem.ResponderMensagem(req.body.id_mensagem,callback);
 }
 
-function RespostaMensagem(resposta,mensagem,id_conversa,callback){
+function RespostaMensagem(req,callback){
     Mensagem.RespostaMensagem(req.body.resposta,req.body.mensagem,req.body.id_conversa,callback);
 }
 module.exports = {
