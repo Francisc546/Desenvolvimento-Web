@@ -17,6 +17,12 @@ function CriarMensagem(mensagem,id_conversa,callback){
     });
 }
 
+function ApagarMensagem(req,callback){
+    var db = mongoConfigs.getDB();
+    db.collection('mensagens').deleteOne( {data:req.body.data, utilizador:req.body.utilizador});
+    callback("apagada");
+
+}
 function ListarMensagens(id_conversa,callback){
     var db = mongoConfigs.getDB();
     global.id_conversa=id_conversa;
@@ -27,8 +33,6 @@ function ListarMensagens(id_conversa,callback){
     });
 
 }
-
-
 function ResponderMensagem(id_mensagem,callback){
     var db = mongoConfigs.getDB();
     global.id_mensagem=id_mensagem;
@@ -69,10 +73,10 @@ function PartilharMensagem(id_mensagem,callback){
 }
 
 
-
 module.exports = {
     ListarMensagens,
     CriarMensagem,
+    ApagarMensagem,
     PartilharMensagem,
     ResponderMensagem,
     RespostaMensagem

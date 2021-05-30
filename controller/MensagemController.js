@@ -6,7 +6,9 @@ function ListarMensagens(req,callback){
 function CriarMensagem(req,callback){
     Mensagem.CriarMensagem(req.body.mensagem,req.body.id_conversa,callback);
 }
-
+function ApagarMensagem(req,callback){
+    Mensagem.ApagarMensagem(req,callback);
+}
 function PartilharMensagem(req,callback){
     Mensagem.PartilharMensagem(req.body.id_mensagem,callback);
 }
@@ -20,6 +22,7 @@ function RespostaMensagem(req,callback){
 module.exports = {
     ListarMensagens,
     CriarMensagem,
+    ApagarMensagem,
     PartilharMensagem,
     ResponderMensagem,
     RespostaMensagem

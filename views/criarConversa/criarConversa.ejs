@@ -10,10 +10,11 @@
 <body>
 <div class ="box">
     <h1>Criar Conversa</h1>
-    <form method="post" action="/criarConversa">
+    <form method="post" action="/criarNovaConversa">
+        <input type="text" name="conversa" placeholder="nome da conversa">
         <input type="submit" name="" value="Criar Conversa">
     </form>
-
+    <%- include(process.cwd() + '/views/partials/voltar') %>
 </div>
 </body>
 </html>

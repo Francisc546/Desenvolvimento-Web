@@ -1,11 +1,33 @@
 var mongoConfigs = require('./mongoConfigs');
-
+var mongoose = require('mongoose');
 
 function CriarConversa(nome,callback){
     var db = mongoConfigs.getDB();
-    db.collection('conversas').insertOne({chat_name:nome,criador:id_user},function(err,result){
-        callback(err,result);
-    });
+    const unixTimestamp = Date.now();
+    const dateObj = new Date(unixTimestamp);
+    const ano =dateObj.getFullYear();
+    const mes =dateObj.getMonth()+1;
+    const dia=dateObj.getDate();
+    const hora=dateObj.getHours().toString().padStart(2,);
+    const minutos=dateObj.getMinutes().toString().padStart(2,0);
+    const segundos=dateObj.getSeconds().toString().padStart(2,0);
+    const data_final=hora+":"+minutos+":"+segundos+" "+dia+"/"+mes+"/"+ano;
+
+    if (nome == "") //if it does
+    {
+        db.collection('conversas').insertOne({chat_name:data_final, criador:id_user},function(err,result){
+            callback(err,result);
+        });
+    }
+    else // if it does not
+    {
+        db.collection('conversas').insertOne({chat_name:nome, criador:id_user},function(err,result){
+            callback(err,result);
+        });
+
+
+    }
+
 }
 function ListarConversas(callback){
     var db = mongoConfigs.getDB();
@@ -18,6 +40,8 @@ function ListarConversas(callback){
 function ApagarConversa(req,callback){
     var db = mongoConfigs.getDB();
     db.collection('conversas').deleteOne( {chat_name:req.body.chat_name});
+    db.collection('participantes').deleteMany( { id_conversa  : req.body.id_conversa});
+    db.collection('mensagens').deleteMany( { conversa  : req.body.id_conversa});
     callback("apagada");
 
 }
@@ -32,14 +56,16 @@ function ListarPessoas(callback){
 function EditarConversa(nome,callback){
     var db = mongoConfigs.getDB();
     var estado={};
-    db.collection('conversas').updateOne({_id:ObjectId(id_conversa)}, {$set: {chat_name:nome}},function(err,result){
+    var id_obj = mongoose.Types.ObjectId(id_conversa);
+    db.collection('conversas').updateOne({_id:id_obj}, {$set: {chat_name:nome}},function(err,result){
         estado.sucesso=true;
         estado.mensagem=("Nome da conversa editado com sucesso!");
         console.log("Nome da conversa editado com sucesso!");
         callback(err,result,estado);
     });
-}
+    db.collection('participantes').updateMany({id_conversa:id_conversa}, {$set: {conversa:nome}});
 
+}
 
 module.exports = {
     CriarConversa,

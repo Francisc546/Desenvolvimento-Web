@@ -13,6 +13,7 @@ function editarNome(nome,callback){
 
         }else // if it does not
         {
+            db.collection('mensagens').updateMany({utilizador:id_user}, {$set: {nome_utilizador:nome}});
             db.collection('registo_contas').updateOne({nome: nome_user}, {$set: {nome: nome}}, function (err, result) {
                 estado.sucesso=true;
                 estado.mensagem = ("Nome editado com sucesso: " + nome);
@@ -47,12 +48,14 @@ function editarFoto(foto,callback){
         }
         else // if it does not
         {
+            db.collection('mensagens').updateMany({utilizador:id_user}, {$set: {foto_utilizador:caminho_editar}});
             db.collection('registo_contas').updateOne({nome:nome_user}, {$set: {foto:caminho_editar}}, function (err, result) {
                 estado.sucesso=true;
                 estado.mensagem=("Foto editada com sucesso: " +nome_user);
                 console.log("Foto editada com sucesso: " +nome_user);
                 callback(err,result,estado);
             });
+
 
 
         }

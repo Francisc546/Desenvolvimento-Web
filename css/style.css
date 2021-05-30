@@ -39,6 +39,85 @@ body{
     text-transform: uppercase;
     font-weight: 500;
 }
+#nome_conversa{
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+.btnElimina {
+    width: 20%;
+
+    height: 50px;
+    margin-left: 5px ;
+    border:0;
+    background: none;
+    text-align: center;
+
+    border: 2px solid #fc0000;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.btnElimina:hover{
+    background: #ff0000;
+}
+
+
+.btnPartilha {
+    width: 20%;
+
+    height: 50px;
+    margin-left: 5px ;
+    border:0;
+    background: none;
+    text-align: center;
+
+    border: 2px solid #3002fd;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.btnPartilha:hover{
+    background: #3002fd;
+}
+.btnResponder {
+    width: 20%;
+
+    height: 50px;
+    margin-left: 5px ;
+    border:0;
+    background: none;
+    text-align: center;
+
+    border: 2px solid #3002fd;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.btnResponder:hover{
+    background: #3002fd;
+}
 .box input[type = "text"],.box input[type = "password"]{
     border:0;
     background: none;

@@ -65,6 +65,9 @@ app.get('/convites',function (req, res) {
     });
 });
 app.get('/criarConversa',function (req, res) {
+        res.render('./criarConversa/criarConversa');
+});
+app.post('/criarNovaConversa',function (req, res) {
     ConversaController.CriarConversa(req, function (err,result) {
         res.render('./login/login');
     });
@@ -76,7 +79,6 @@ app.get('/pedidos',function (req, res) {   /*FALTA FAZER O EJS PARA ESTE*/
     res.render('./conversa/conversa');
 });
 app.get('/voltar',function (req, res) {
-
     res.render('./login/login');
 });
 app.get('/sair',function (req, res) {
@@ -90,6 +92,12 @@ app.get('/adicionar',function (req, res) {
         estado.pessoas=result;
         res.render('./adicionarPessoa/adicionarPessoa',{data:estado});
     });
+});
+app.post('/editar_conversa',function (req, res) {
+    ConversaController.EditarConversa( req,function (err,result,estado) {
+        res.render('./login/login', {data:estado});
+    });
+
 });
 app.post('/aceitar',function (req, res) {
     ConvitesController.AceitarConvite( req,function (result) {
@@ -119,6 +127,12 @@ app.post('/apagar',function (req, res) {
 
     });
 });
+app.post('/eliminar_mensagem',function (req, res) {
+    MensagemController.ApagarMensagem(req, function (result) {
+        res.render('./volta_conversa');
+    });
+});
+
 app.post('/abandonarConversa',function (req, res) {
     ConvitesController.AbandonarConversa(req, function (result) {
         res.render('./login/login', );
@@ -131,9 +145,8 @@ app.post('/pedirVoltar',function (req, res) {
     });
 });
 app.post('/adicionarPessoa',function (req, res) {
-    ConvitesController.CriarParticipante(req, function (result) {
-        res.render('./login/login' );
-
+    ConvitesController.CriarParticipante(req, function (err,result,estado) {
+        res.render('./volta_adicionar' ,{data:estado});
     });
 });
 app.post('/conversa',function (req, res) {
@@ -141,9 +154,10 @@ app.post('/conversa',function (req, res) {
         res.render('./conversa/conversa', {data:{mensagens:result,id_conversa:req.body.chat,nome_user:nome_user,chat_name:nome_conversa,criador:criador}});
     });
 });
+
 app.post('/enviar',function (req, res) {
     MensagemController.CriarMensagem(req, function (err,result) {
-        res.render('./login/login' );
+        res.render('./volta_conversa');
     });
 });
 app.post('/registado', upload.single('img'),function (req, res) {
@@ -182,11 +196,6 @@ app.post('/perfil', function (req, res) {
     });
 });
 
-
-
-
-
-
 app.post('/responderMensagem',function (req, res) {
     MensagemController.ResponderMensagem(req, function (err,result, estado) {
         estado.mensagem = result;
@@ -205,34 +214,12 @@ app.post('/respostaMensagem',function (req, res) {
 
 
 app.post('/partilharMensagem',function (req, res) {
-        ConversaController.ListarConversas(function (err,result,estado) {
-            MensagemController.PartilharMensagem(req, function (result2) {
-                estado.conversas_participadas = result;
-                estado.mensagem_partilhada = result2;
-                //res.render('./conversa/partilharMensagem',{data:result}); //mudar render para o partilharmensagem ejs
-                res.render('./conversa/partilharMensagem', {data: {mensagem_partilhada: result, conversas_participadas: result2}}); //mudar render para o partilharmensagem ejs
-            });
+    ConversaController.ListarConversas(function (err,result,estado) {
+        MensagemController.PartilharMensagem(req, function (result2) {
+            estado.conversas_participadas = result;
+            estado.mensagem_partilhada = result2;
+            //res.render('./conversa/partilharMensagem',{data:result}); //mudar render para o partilharmensagem ejs
+            res.render('./conversa/partilharMensagem', {data: {mensagem_partilhada: result, conversas_participadas: result2}}); //mudar render para o partilharmensagem ejs
         });
+    });
 });
-
-
-/*
-var express = require('express');
-var user = require('../controllers/user.js'); /*Verificar se estes caminhos estão corretos*/
-/*var bodyParser = require('body-parser');
-var jsonParser = bodyParser.json();
-
-const router = express.Router();
-
-router
-  .get('/', chatRoom.getRecentConversation)
-  .get('/:roomId', chatRoom.getConversationByRoomId)
-  .post('/initiate', chatRoom.initiate)
-  .post('/:roomId/message', chatRoom.postMessage)
-  .put('/:roomId/mark-read', chatRoom.markConversationReadByRoomId)
-
-
-module.exports = router; */
-
-
-

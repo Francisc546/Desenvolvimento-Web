@@ -3,33 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
-      crossorigin="anonymous"
-    />
     <link rel="stylesheet" href="style.css" />
     <script type="text/javascript" src="scripts.js"></script>
     <title> App do Paleio</title>
 
   </head>
   <body>
+  <body onload="myFunction()">
+  <script>
+    function myFunction() {
+      window.location.href='#aqui';
+    }
+  </script>
     <div class="ConversaBox">
         <header class="conversa-cabecalho">
-          
           <h1><i class="fas fa-smile"></i><%=data.nome_user%></h1>
           <% if (data.criador == id_user) { %>
-              <form action="/alteracoes">
-                <button id="leave-btn" class="btnI">Alterações </button>
-              </form>
               <form action="/adicionar">
                 <button id="leave-btn" class="btnI">Adicionar</button>
               </form>
-             <!-- <form method="post" action="/apagar">
-                <input  type="hidden" name="chat_name" value="<%=data.chat_name%>" >
-                <button id="leave-btn" class="btnI">Apagar Conversa</button>
-              </form>-->
+             <form method="post" action="/apagar">
+                <input  type="hidden" name="chat_name" value="<%=data.chat_name%>">
+               <input  type="hidden" name="id_conversa" value="<%=data.id_conversa%>">
+                <button id="leave-btn" class="btnI">Encerrar Conversa</button>
+              </form>
           <% } else { %>
             <form method="post" action="/abandonarConversa"> <!--Isto serve para sair da conversa, logo depois nas suas conversas disponiveis já não aparece esta conversa-->
               <button id="leave-btn" class="btnI">Abandonar</button>
@@ -37,55 +34,86 @@
           <% } %>
           <%- include(process.cwd() + '/views/partials/voltar') %>
         </header>
-
+      <% if (data.criador == id_user) { %>
+      <main class="ConversaMain">
+        <div class="conteudo-lateral">
+          <h3><i class="fas fa-comments"></i>Conversa: <%=data.chat_name%></h3>
+          <form method="post" action="/editar_conversa">
+            <input  type="hidden" name="chat_name" value="<%=data.chat_name%>">
+            <input id ="nome_conversa" type="text" name="nome"  placeholder="Novo Nome" required />
+            <button id="leave-btn" class="btnI">Novo Nome</button>
+          </form>
+          <h2 id="room-name"></h2>
+          <h3><i class="fas fa-users"></i> Participantes</h3>
+          <ul id="users"></ul>
+        </div>
+        <div class="mensagens">
+          <!--Onde irá ficar as conversas-->
+          <% for(var i=0; i<data.mensagens.length; ++i){ %>
+          <div class="message" >
+            <img src='<%=data.mensagens[i].foto_utilizador%>' alt="foto" class="foto">
+            <p class="meta"><%=data.mensagens[i].nome_utilizador%><span> <%=data.mensagens[i].data%></span></p>
+            <p class="text" id="<%=i%>">
+              <%=data.mensagens[i].mensagem%>
+            </p>
+            <form method="post" action="/partilharMensagem"> <!--Isto serve para partilhar a mensagem para outra Conversa-->
+              <button id="partilha-btn" class ="btnPartilha"> Partilhar </button>
+            </form>
+              <% if (data.mensagens[i].utilizador == id_user) { %>
+            <form method="post" action="/eliminar_mensagem">
+              <input  type="hidden" name="data" value="<%=data.mensagens[i].data%>">
+              <input  type="hidden" name="utilizador" value="<%=data.mensagens[i].utilizador%>">
+              <button class ="btnElimina"> Eliminar </button>
+            </form>
+            <form method="post" action="/responderMensagem"> <!--Isto serve para responder a uma mensagem -->
+              <button id="responder-btn" class ="btnResponder"> Responder </button>
+            </form>
+              <% } else { %>
+              <% } %>
+          </div>
+          <% } %>
+          <div id="aqui"></div>
+        </div>
+      </main>
+      <% } else { %>
       <main class="ConversaMain">
         <div class="conteudo-lateral">
           <h3><i class="fas fa-comments"></i><%=data.chat_name%></h3>
           <h2 id="room-name"></h2>
           <h3><i class="fas fa-users"></i> Participantes</h3>
           <ul id="users"></ul>
-         
         </div>
         <div class="mensagens">
           <!--Onde irá ficar as conversas-->
           <% for(var i=0; i<data.mensagens.length; ++i){ %>
-            <% if (data.mensagens[i].resposta == null) { %>
-            <div class="message" >
-              <img src='<%=data.mensagens[i].foto_utilizador%>' alt="foto" class="foto">
-              <p class="meta"><%=data.mensagens[i].nome_utilizador%><span> <%=data.mensagens[i].data%></span></p>
-              <p class="text" id="<%=i%>">
-                <%=data.mensagens[i].mensagem%>
-              </p>
-
-              <% } else { %>
-              <img src='<%=data.mensagens[i].foto_utilizador%>' alt="foto" class="foto">
-              <p class="meta"><%=data.mensagens[i].nome_utilizador%><span> <%=data.mensagens[i].data%></span></p>
-              <p class="text" id="<%=i%>">
-                <%=data.mensagens[i].mensagem%>
-              </p>
-              <img src='<%=data.mensagens[i].foto_utilizador%>' alt="foto" class="foto">
-              <p class="meta"><%=data.mensagens[i].nome_utilizador%><span> <%=data.mensagens[i].data%></span></p>
-              <p class="text" id="<%=i%>">
-                <%=data.mensagens[i].resposta%>
-              </p>
-              <% } %>
-
+          <div class="message" >
+            <img src='<%=data.mensagens[i].foto_utilizador%>' alt="foto" class="foto">
+            <p class="meta"><%=data.mensagens[i].nome_utilizador%><span> <%=data.mensagens[i].data%></span></p>
+            <p class="text" id="<%=i%>">
+              <%=data.mensagens[i].mensagem%>
+            </p>
               <form method="post" action="/partilharMensagem"> <!--Isto serve para partilhar a mensagem para outra Conversa-->
                 <button id="partilha-btn" class ="btnPartilha"> Partilhar </button>
               </form>
-
-              <form method="post" action="/responderMensagem"> <!--Isto serve para responder a uma mensagem -->
-                <button id="responder-btn" class ="btnResponder"> Responder </button>
+              <% if (data.mensagens[i].utilizador == id_user) { %>
+              <form method="post" action="/eliminar_mensagem">
+                <input  type="hidden" name="data" value="<%=data.mensagens[i].data%>">
+                <input  type="hidden" name="utilizador" value="<%=data.mensagens[i].utilizador%>">
+                <button class ="btnElimina"> Eliminar </button>
               </form>
 
-            </div>
+
+            <form method="post" action="/responderMensagem"> <!--Isto serve para responder a uma mensagem -->
+              <button id="responder-btn" class ="btnResponder"> Responder </button>
+            </form>
+              <% } else { %>
+              <% } %>
+          </div>
           <% } %>
           <div id="aqui"></div>
-
-
-
-        </div>   
+        </div>
       </main>
+      <% } %>
       <div class="conversa-form-container"> <!-- é o container do fundo onde tem o input para texto e o botao para enviar msg-->
         <form  id="conversa-form" method="post" action="/enviar" > <!-- ver o method e action para este form -->
           <input type="hidden" name="id_conversa" value="<%= data.id_conversa %>"/>
@@ -95,20 +123,6 @@
         </form>
       </div>
     </div>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
-      integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
-      crossorigin="anonymous"
-    ></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/main.js"></script>
-    <body onload="myFunction()">
-    <script>
-      function myFunction() {
-        window.location.href='#aqui';
-      }
-
-    </script>
   </body>
 </html>
 

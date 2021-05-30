@@ -3,14 +3,30 @@ var ObjectId = require('mongodb').ObjectId;
 
 function CriarParticipante(nome,callback){
     var db = mongoConfigs.getDB();
-    db.collection('registo_contas').find({nome:nome}).toArray(function(err,result){
-        db.collection('conversas').find({_id:ObjectId(global.id_conversa)}).toArray(function(err,result2){
-            console.log(result2);
-            db.collection('participantes').insertOne({id_user:result[0]._id.toString(),id_conversa:global.id_conversa,aceite:0,conversa:result2[0].chat_name,nome_participante:result[0].nome,id_admin:id_user},function(err,result){
-                callback(err,result);
+    db.collection("participantes").find({ nome_participante:nome,id_conversa:id_conversa}, { $exists: true }).toArray(function    (err, doc) //find if a value exists
+    {   var estado={};
+        if (doc && doc.length) //if it does
+        {
+            console.log(doc,"O utilizador "+nome+" Pessoa já foi convidado");
+            callback(err,doc,estado);
 
-            });
-        });
+        }else // if it does not
+        {
+            if(nome==nome_user){
+                console.log(doc,"Não se pode adicionar a si mesmo.");
+                callback(err,doc,estado);
+            }else{
+                db.collection('registo_contas').find({nome:nome}).toArray(function(err,result){
+                    db.collection('conversas').find({_id:ObjectId(global.id_conversa)}).toArray(function(err,result2){
+                        console.log(result2);
+                        db.collection('participantes').insertOne({id_user:result[0]._id.toString(),id_conversa:global.id_conversa,aceite:0,conversa:result2[0].chat_name,nome_participante:result[0].nome,id_admin:id_user},function(err,result){
+                            callback(err,result);
+
+                        });
+                    });
+                });
+            }
+        }
     });
 }
 
